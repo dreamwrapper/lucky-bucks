@@ -21,7 +21,9 @@ export default function Tabs() {
           </div>
           <div className='mt-7 grid gap-y-4 md:mt-0 lg:grid-cols-3 lg:gap-x-6 lg:gap-y-0'>
             <Button outline={isModalOpen ? true : false}>Pick 6 numbers</Button>
-            <Button outline>Draw History</Button>
+            <Button outline disabled>
+              Draw History
+            </Button>
             <Button
               outline={isModalOpen ? false : true}
               onClick={handleOnClick}

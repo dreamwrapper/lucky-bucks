@@ -1,18 +1,17 @@
-import { Dropdown } from 'flowbite-react';
-import { HiTableCells, HiUser, HiUserCircle } from 'react-icons/hi2';
-import { HiLogout } from 'react-icons/hi';
+import { HiUserCircle } from 'react-icons/hi2';
 import { useState } from 'react';
 import ConnectModal from './ConnectModal';
 import useClient from '@/lib/hooks/useClient';
-import useMetamask from '@/lib/hooks/useMetamask';
+import { useAccount } from 'wagmi';
+import UserModal from './UserModal';
 
 export default function UserButton() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const isClient = useClient();
-  const { address } = useMetamask();
+  const { isConnected, isDisconnected } = useAccount();
 
-  const handleConnectModal = () => {
+  const handleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
 
@@ -26,31 +25,18 @@ export default function UserButton() {
 
   return (
     <>
-      {isClient && address && (
-        <Dropdown
-          label=''
-          renderTrigger={() => (
-            <button>
-              <HiUserCircle className='h-9 w-9' />
-            </button>
-          )}
-        >
-          <Dropdown.Header>
-            <span className='block text-sm'>Anonymous</span>
-            <span className='block truncate text-sm font-medium'>
-              {address?.substring(0, 8)}
-            </span>
-          </Dropdown.Header>
-          <Dropdown.Item icon={HiUser}>Profile</Dropdown.Item>
-          <Dropdown.Item icon={HiTableCells}>History</Dropdown.Item>
-          <Dropdown.Divider />
-          <Dropdown.Item icon={HiLogout}>Disconnect</Dropdown.Item>
-        </Dropdown>
+      {isConnected && (
+        <>
+          <button onClick={handleModal}>
+            <HiUserCircle className='h-9 w-9' />
+          </button>
+          <UserModal isModalOpen={isModalOpen} onClick={setIsModalOpen} />
+        </>
       )}
 
-      {isClient && !address && (
+      {isDisconnected && (
         <>
-          <button onClick={handleConnectModal}>
+          <button onClick={handleModal}>
             <HiUserCircle className='h-9 w-9' />
           </button>
           <ConnectModal isModalOpen={isModalOpen} onClick={setIsModalOpen} />

@@ -1,4 +1,4 @@
-import useMetamask from '@/lib/hooks/useMetamask';
+import { useConnectModal } from '@rainbow-me/rainbowkit';
 import { Alert, Button, Modal } from 'flowbite-react';
 import { Dispatch, SetStateAction } from 'react';
 
@@ -9,13 +9,8 @@ export default function ConnectModal({
   isModalOpen: boolean;
   onClick: Dispatch<SetStateAction<boolean>>;
 }) {
-  const { address, connect } = useMetamask();
+  const { openConnectModal } = useConnectModal();
 
-  const handleOnConnect = () => {
-    if (!address) {
-      connect();
-    }
-  };
   return (
     <>
       <Modal
@@ -29,10 +24,11 @@ export default function ConnectModal({
           <div>
             <Alert color='warning' rounded>
               <span className='font-medium'>Wallet is not connected!</span>{' '}
-              Please connect your wallet and sign the message to authenticate.
+              Please connect your wallet and sign the message (if any) to
+              authenticate.
             </Alert>
 
-            <Button className='mt-5 w-full' onClick={handleOnConnect}>
+            <Button className='mt-5 w-full' onClick={openConnectModal}>
               Connect Wallet
             </Button>
           </div>

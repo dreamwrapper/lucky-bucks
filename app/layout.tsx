@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import AppBar from '@/components/Lottery/AppBar';
-import Wagmi from './wagmi';
+import RainbowKit from './rainbowkit';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -20,12 +20,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang='en' className='dark backdrop-blur-sm'>
+    <html lang='en' className='dark'>
       <body
-        className={`dark:bg-gray-900 dark:text-gray-100 ${inter.className}`}
+        className={`dark:bg-gray-900 dark:text-gray-100 ${inter.className} scrollbar-hide`}
       >
-        <AppBar />
-        {children}
+        <RainbowKit>
+          <AppBar />
+          {children}
+        </RainbowKit>
       </body>
     </html>
   );

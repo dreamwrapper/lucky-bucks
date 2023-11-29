@@ -1,68 +1,91 @@
-import { Button } from 'flowbite-react';
-import { HiArrowPath, HiChevronRight, HiXMark } from 'react-icons/hi2';
+'use client';
 
-function SelectedNumber() {
-  let nums: number[] = [1, 2, 3, 4, 5, 6];
-
-  return (
-    <div className='mt-10 md:rounded-lg md:border md:border-gray-700 md:p-7'>
-      <div className='flex flex-col lg:flex-row lg:items-center lg:justify-evenly'>
-        <h2 className='text-center text-xl font-semibold'>
-          Selected Numbers :
-        </h2>
-        <div className='mt-7 grid grid-cols-6 gap-3 md:mx-auto md:max-w-sm lg:mx-0 lg:mt-0'>
-          {nums.map((num, i) => (
-            <Button pill key={i} size='sm'>
-              {num}
-            </Button>
-          ))}
-        </div>
-      </div>
-      <div className='flex flex-col lg:mt-10 lg:flex-row lg:items-center lg:justify-evenly'>
-        <div className='mt-8 flex justify-evenly md:justify-center md:gap-x-6 lg:mt-0'>
-          <Button color='failure' pill>
-            Clear
-            <HiXMark className='ml-3 h-4 w-4' />
-          </Button>
-          <Button pill color='blue'>
-            Auto Pick
-            <HiArrowPath className='ml-3 h-4 w-4' />
-          </Button>
-        </div>
-        <div className='mt-7 lg:mt-0'>
-          <Button pill className='mx-auto' color='success'>
-            Purchase Tickets
-            <HiChevronRight className='ml-3 h-4 w-4' />
-          </Button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function LotteryNumber() {
-  let nums: number[] = [];
-
-  let i;
-
-  for (i = 1; i <= 50; i++) {
-    nums.push(i);
-  }
-
-  return nums.map((num, i) => (
-    <Button outline key={i} pill>
-      {num}
-    </Button>
-  ));
-}
+import { Card } from 'flowbite-react';
+import LotteryNumbers from './LotteryNumbers';
+import SelectedNumbers from './SelectedNumbers';
+import { useState } from 'react';
+import { rng } from '@/lib/utils/rng';
+import TicketCartButton from './TicketCartButton';
+import TicketCartModal from './TicketCartModal';
 
 export default function Core() {
+  const [selectedTickets, setSelectedTickets] = useState<number[]>([]);
+  const [isCartModalOpen, setIsCartModalOpen] = useState(false);
+  const [addedTickets, setAddedTickets] = useState<number[][]>([]);
+
+  const handleSelectedTickets = (selectedTicket: number) => {
+    const numberIndex = selectedTickets.indexOf(selectedTicket);
+
+    if (numberIndex !== -1) {
+      const updatedNumbers = [...selectedTickets];
+      updatedNumbers.splice(numberIndex, 1);
+      setSelectedTickets(updatedNumbers);
+    } else {
+      if (selectedTickets.length === 6) {
+        return;
+      }
+      setSelectedTickets([...selectedTickets, selectedTicket]);
+    }
+  };
+
+  const handleCartModal = () => {
+    setIsCartModalOpen(!isCartModalOpen);
+  };
+
+  const handleAddedTickets = () => {
+    if (selectedTickets && selectedTickets.length === 6) {
+      setAddedTickets([...addedTickets, selectedTickets]);
+      setSelectedTickets([]);
+    }
+  };
+
+  const handleRemoveAddedTickets = (ticketIndex: number) => {
+    const newAddedTickets = addedTickets.filter((_, index) => index !== ticketIndex);
+
+    setAddedTickets(newAddedTickets);
+  };
+
+  const clearSelectedTickets = () => {
+    setSelectedTickets([]);
+  };
+
+  const randomSelectedTickets = () => {
+    const MIN_RANGE = 1;
+    const MAX_RANGE = 50;
+    const MAX_LENGTH = 6;
+
+    let result: number[] = new Array(MAX_LENGTH);
+
+    outerLoop: for (let i = 0; i < MAX_LENGTH; i++) {
+      const number = rng(MIN_RANGE, MAX_RANGE);
+
+      for (let j = 0; j < result.length; j++) {
+        if (number == result[j]) {
+          i--;
+          continue outerLoop;
+        }
+      }
+
+      result[i] = number;
+    }
+
+    setSelectedTickets(result);
+  };
+
   return (
-    <div>
-      <div className='grid grid-cols-5 gap-3 md:grid-cols-10 lg:gap-x-6 lg:gap-y-3'>
-        <LotteryNumber />
+    <>
+      <div>
+        <Card className='md:mx-auto md:max-w-2xl lg:max-w-4xl'>
+          <div>
+            <div className='grid grid-cols-5 gap-3 md:grid-cols-10 lg:gap-x-9 lg:gap-y-4'>
+              <LotteryNumbers selectedTickets={selectedTickets} onClick={handleSelectedTickets} />
+            </div>
+            <SelectedNumbers selectedTickets={selectedTickets} onClearSelectedTickets={clearSelectedTickets} onRandomSelectedTickets={randomSelectedTickets} handleAddedTickets={handleAddedTickets} />
+          </div>
+        </Card>
       </div>
-      <SelectedNumber />
-    </div>
+      <TicketCartButton addedTickets={addedTickets} onClick={handleCartModal} />
+      <TicketCartModal addedTickets={addedTickets} handleRemoveAddedTickets={handleRemoveAddedTickets} isCartModalOpen={isCartModalOpen} onClick={setIsCartModalOpen} />
+    </>
   );
 }
