@@ -85,7 +85,13 @@ export default function Core() {
         </Card>
       </div>
       <TicketCartButton addedTickets={addedTickets} onClick={handleCartModal} />
-      <TicketCartModal addedTickets={addedTickets} handleRemoveAddedTickets={handleRemoveAddedTickets} isCartModalOpen={isCartModalOpen} onClick={setIsCartModalOpen} />
+      <TicketCartModal
+        addedTickets={addedTickets}
+        setAddedTickets={setAddedTickets}
+        handleRemoveAddedTickets={handleRemoveAddedTickets}
+        isCartModalOpen={isCartModalOpen}
+        onClick={setIsCartModalOpen}
+      />
     </>
   );
 }

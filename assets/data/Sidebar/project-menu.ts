@@ -23,6 +23,10 @@ export const projectMenu = [
         href: 'https://xeggex.com/market/LBC_USDT',
         text: 'Xeggex',
       },
+      {
+        href: 'https://www.pacman.trade/#/exchange/lbc_usdt',
+        text: 'Pacman',
+      },
     ],
   },
   {

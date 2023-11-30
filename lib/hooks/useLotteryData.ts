@@ -9,6 +9,20 @@ export default function useLotteryData() {
     functionName: 'round',
   });
 
+  const { data: prizePool } = useContractRead({
+    watch: true,
+    abi: LOTTERY_ABI,
+    address: LOTTERY_ADDRESS,
+    functionName: 'prizePool',
+  });
+
+  const { data: ticketSold } = useContractRead({
+    watch: true,
+    abi: LOTTERY_ABI,
+    address: LOTTERY_ADDRESS,
+    functionName: 'ticketSold',
+  });
+
   const { data: ticketPrice } = useContractRead({
     watch: true,
     abi: LOTTERY_ABI,
@@ -23,5 +37,5 @@ export default function useLotteryData() {
     functionName: 'lotteryTimestamp',
   });
 
-  return { lotteryCurrentRound, ticketPrice, lotteryTimestamp };
+  return { lotteryCurrentRound, prizePool, ticketSold, ticketPrice, lotteryTimestamp };
 }

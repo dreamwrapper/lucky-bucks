@@ -1,19 +1,20 @@
 import useAllowances from '@/lib/hooks/useAllowances';
 import useApprove from '@/lib/hooks/useApprove';
 import useLotteryData from '@/lib/hooks/useLotteryData';
-import useLotteryStatus from '@/lib/hooks/useLotteryStatus';
 import usePurchase from '@/lib/hooks/usePurchase';
 import { Button, CustomFlowbiteTheme, Modal, Tooltip } from 'flowbite-react';
-import { Dispatch, SetStateAction } from 'react';
-import { HiMinus, HiShoppingCart, HiXMark } from 'react-icons/hi2';
+import React, { Dispatch, SetStateAction, useEffect } from 'react';
+import { HiMinus, HiShoppingCart } from 'react-icons/hi2';
 
 export default function TicketCartModal({
   addedTickets,
+  setAddedTickets,
   handleRemoveAddedTickets,
   isCartModalOpen,
   onClick,
 }: {
   addedTickets: number[][];
+  setAddedTickets: Dispatch<SetStateAction<number[][]>>;
   handleRemoveAddedTickets: (ticketIndex: number) => void;
   isCartModalOpen: boolean;
   onClick: Dispatch<SetStateAction<boolean>>;
@@ -29,21 +30,25 @@ export default function TicketCartModal({
     },
   };
 
-  const isTicketsAdded = addedTickets.length ? true : false;
-
-  const isLotteryOpen = useLotteryStatus();
   const { ticketPrice } = useLotteryData();
-  const { allowances } = useAllowances(isTicketsAdded);
+  const { allowances } = useAllowances();
 
-  const totalTokenCost = ticketPrice !== undefined ? addedTickets.length * ticketPrice * 10 ** 18 : 0;
-  const isAllowance = allowances !== undefined ? Number(allowances) < totalTokenCost : false;
+  const totalCost = ticketPrice !== undefined ? addedTickets.length * ticketPrice : 0;
+  const totalTokenCost = ticketPrice !== undefined ? BigInt(addedTickets.length) * BigInt(ticketPrice) * BigInt(10 ** 18) : BigInt(0);
+  const isAllowance = allowances !== undefined ? allowances < totalTokenCost : false;
 
   const { approveTokens, isApproving, isApproveTxLoading } = useApprove(isAllowance, totalTokenCost);
   const { purchase, isPurchasing, isPurchaseTxLoading } = usePurchase(allowances, addedTickets as [[number, number, number, number, number, number]]);
 
-  console.log('allowances: ', allowances);
-  console.log('isLotteryOpen: ', isLotteryOpen);
-  console.log('isAllowance: ', isAllowance);
+  const handlePurchase = () => {
+    purchase?.();
+  };
+
+  useEffect(() => {
+    if (!isPurchaseTxLoading) {
+      setAddedTickets([]);
+    }
+  }, [isPurchaseTxLoading]);
 
   return (
     <Modal dismissible show={isCartModalOpen} size='xl' onClose={() => onClick(false)} theme={customModalTheme} className='scrollbar-hide'>
@@ -84,12 +89,12 @@ export default function TicketCartModal({
               <Button color='blue' disabled={!isAllowance || isApproving || isApproveTxLoading} onClick={() => approveTokens?.()}>
                 Approve
               </Button>
-              <Button color='success' disabled={isAllowance || isPurchasing || isPurchaseTxLoading} onClick={() => purchase?.()}>
+              <Button color='success' disabled={isAllowance || isPurchasing || isPurchaseTxLoading} onClick={handlePurchase}>
                 Purchase
               </Button>
             </div>
             <p className='mt-5 text-center'>
-              Total Cost: <span className='font-semibold'>1,000,000 LBC</span>
+              Total Cost: <span className='font-semibold'>{totalCost} LBC</span>
             </p>
           </>
         ) : (

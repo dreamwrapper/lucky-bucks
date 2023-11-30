@@ -1,4 +1,4 @@
-import { useBlockNumber, usePublicClient } from 'wagmi';
+import { usePublicClient } from 'wagmi';
 import useLotteryData from './useLotteryData';
 import { useEffect, useState } from 'react';
 

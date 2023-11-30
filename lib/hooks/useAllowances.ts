@@ -2,7 +2,7 @@ import { LOTTERY_ADDRESS } from '@/config/lottery-contract';
 import { TOKEN_ABI, TOKEN_ADDRESS } from '@/config/token-contract';
 import { useAccount, useContractRead } from 'wagmi';
 
-export default function useAllowances(isTicketsAdded: boolean) {
+export default function useAllowances() {
   const { address } = useAccount();
 
   const { data: allowances } = useContractRead({
@@ -11,7 +11,6 @@ export default function useAllowances(isTicketsAdded: boolean) {
     address: TOKEN_ADDRESS,
     functionName: 'allowance',
     args: [address as `0x${string}`, LOTTERY_ADDRESS],
-    enabled: isTicketsAdded,
   });
 
   return { allowances };
