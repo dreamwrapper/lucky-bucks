@@ -1,49 +1,5 @@
-export const LOTTERY_ADDRESS = '0x21CA81CD45a40c99c06ba5de04bA3305Bee2ceDf';
+export const LOTTERY_ADDRESS = '0x140dDe6d809225EDCd3F613589fddf875D4157BD';
 export const LOTTERY_ABI = [
-  {
-    inputs: [
-      {
-        internalType: 'uint8',
-        name: 'stateIndex',
-        type: 'uint8',
-      },
-    ],
-    name: 'claimTokens',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint24',
-        name: '_ticketPrices',
-        type: 'uint24',
-      },
-      {
-        internalType: 'uint40',
-        name: '_lotteryTimestamp',
-        type: 'uint40',
-      },
-    ],
-    name: 'createLottery',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint16',
-        name: 'ticketIndex',
-        type: 'uint16',
-      },
-    ],
-    name: 'draw',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
   {
     inputs: [
       {
@@ -222,26 +178,6 @@ export const LOTTERY_ABI = [
   {
     inputs: [
       {
-        internalType: 'uint8[6][]',
-        name: 'selectedTickets',
-        type: 'uint8[6][]',
-      },
-    ],
-    name: 'purchase',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'renounceOwnership',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
         internalType: 'string',
         name: 'message',
         type: 'string',
@@ -369,13 +305,6 @@ export const LOTTERY_ABI = [
     type: 'event',
   },
   {
-    inputs: [],
-    name: 'pause',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
     anonymous: false,
     inputs: [
       {
@@ -414,39 +343,6 @@ export const LOTTERY_ABI = [
     type: 'event',
   },
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_token',
-        type: 'address',
-      },
-    ],
-    name: 'setNewToken',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'newOwner',
-        type: 'address',
-      },
-    ],
-    name: 'transferOwnership',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'unpause',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
     anonymous: false,
     inputs: [
       {
@@ -460,8 +356,45 @@ export const LOTTERY_ABI = [
     type: 'event',
   },
   {
-    inputs: [],
-    name: 'withdrawProjectTokens',
+    inputs: [
+      {
+        internalType: 'uint8',
+        name: 'stateIndex',
+        type: 'uint8',
+      },
+    ],
+    name: 'claimTokens',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint24',
+        name: '_ticketPrices',
+        type: 'uint24',
+      },
+      {
+        internalType: 'uint40',
+        name: '_lotteryTimestamp',
+        type: 'uint40',
+      },
+    ],
+    name: 'createLottery',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint16',
+        name: 'ticketIndex',
+        type: 'uint16',
+      },
+    ],
+    name: 'draw',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
@@ -482,6 +415,19 @@ export const LOTTERY_ABI = [
   {
     inputs: [],
     name: 'isLotteryDrawComplete',
+    outputs: [
+      {
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'isLotteryOpen',
     outputs: [
       {
         internalType: 'bool',
@@ -520,15 +466,9 @@ export const LOTTERY_ABI = [
   },
   {
     inputs: [],
-    name: 'paused',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
-    stateMutability: 'view',
+    name: 'pause',
+    outputs: [],
+    stateMutability: 'nonpayable',
     type: 'function',
   },
   {
@@ -539,6 +479,19 @@ export const LOTTERY_ABI = [
         internalType: 'uint40',
         name: '',
         type: 'uint40',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'paused',
+    outputs: [
+      {
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
       },
     ],
     stateMutability: 'view',
@@ -571,6 +524,26 @@ export const LOTTERY_ABI = [
     type: 'function',
   },
   {
+    inputs: [
+      {
+        internalType: 'uint8[6][]',
+        name: 'selectedTickets',
+        type: 'uint8[6][]',
+      },
+    ],
+    name: 'purchase',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'renounceOwnership',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
     inputs: [],
     name: 'round',
     outputs: [
@@ -581,6 +554,19 @@ export const LOTTERY_ABI = [
       },
     ],
     stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '_token',
+        type: 'address',
+      },
+    ],
+    name: 'setNewToken',
+    outputs: [],
+    stateMutability: 'nonpayable',
     type: 'function',
   },
   {
@@ -620,6 +606,26 @@ export const LOTTERY_ABI = [
       },
     ],
     stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: 'newOwner',
+        type: 'address',
+      },
+    ],
+    name: 'transferOwnership',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'unpause',
+    outputs: [],
+    stateMutability: 'nonpayable',
     type: 'function',
   },
   {
@@ -685,6 +691,13 @@ export const LOTTERY_ABI = [
       },
     ],
     stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'withdrawProjectTokens',
+    outputs: [],
+    stateMutability: 'nonpayable',
     type: 'function',
   },
 ] as const;

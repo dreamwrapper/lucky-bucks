@@ -1,4 +1,5 @@
 import useClient from '@/lib/hooks/useClient';
+import useLotteryData from '@/lib/hooks/useLotteryData';
 import useLotteryStatus from '@/lib/hooks/useLotteryStatus';
 import { Button } from 'flowbite-react';
 import { HiArrowPath, HiChevronRight, HiXMark } from 'react-icons/hi2';
@@ -15,7 +16,7 @@ export default function SelectedNumbers({
   handleAddedTickets: () => void;
 }) {
   const isClient = useClient();
-  const isLotteryOpen = useLotteryStatus();
+  const { isLotteryOpen } = useLotteryData();
 
   if (!isClient) {
     return (

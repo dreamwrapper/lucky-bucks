@@ -12,7 +12,7 @@ export default function Tabs() {
 
   const isClient = useClient();
 
-  const { lotteryCurrentRound, lotteryTimestamp } = useLotteryData();
+  const { lotteryCurrentRound, lotteryTimestamp, isLotteryOpen, isDrawComplete, winningTicket } = useLotteryData();
   const { remainingTime, formatTime } = useCountdown(lotteryTimestamp !== undefined ? lotteryTimestamp : 0);
 
   const countdown = formatTime(remainingTime);
@@ -24,7 +24,12 @@ export default function Tabs() {
       <Card className='md:mx-auto md:max-w-2xl lg:max-w-4xl'>
         <div className='flex flex-col md:flex-row md:items-center md:justify-around'>
           <div className='mx-auto space-y-2 md:mx-0'>
-            <h1 className='text-2xl font-bold'>Lottery - Round {isClient ? lotteryCurrentRound : 0} </h1>
+            {!isLotteryOpen && isDrawComplete ? (
+              <h1 className='text-xl font-bold'> {`[ ${winningTicket?.join(', ')} ]`} </h1>
+            ) : (
+              <h1 className='text-2xl font-bold'>Lottery - Round {isClient ? lotteryCurrentRound : 0} </h1>
+            )}
+
             <p className='text-xl'>
               <span className='font-light'>Countdown</span> : {remainingTime > 0 ? <span>{countdown}</span> : <span className='font-bold'>CLOSED</span>}
             </p>

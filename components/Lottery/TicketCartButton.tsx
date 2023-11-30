@@ -1,11 +1,12 @@
 import useClient from '@/lib/hooks/useClient';
+import useLotteryData from '@/lib/hooks/useLotteryData';
 import useLotteryStatus from '@/lib/hooks/useLotteryStatus';
 import { Badge, Button } from 'flowbite-react';
 import { HiShoppingCart } from 'react-icons/hi2';
 
 export default function TicketCartButton({ addedTickets, onClick }: { addedTickets: number[][]; onClick: () => void }) {
   const isClient = useClient();
-  const isLotteryOpen = useLotteryStatus();
+  const { isLotteryOpen } = useLotteryData();
 
   if (!isClient) {
     return (

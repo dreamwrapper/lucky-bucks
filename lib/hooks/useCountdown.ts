@@ -21,7 +21,7 @@ export default function useCountdown(targetTimestamp: number) {
     const hours = Math.floor((time / (1000 * 60 * 60)) % 24);
     const days = Math.floor(time / (1000 * 60 * 60 * 24));
 
-    return `${days}:${hours}:${minutes}:${seconds}`;
+    return `${days}d:${hours}h:${minutes}m:${seconds}s`;
   };
 
   return { remainingTime, formatTime };

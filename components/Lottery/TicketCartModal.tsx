@@ -2,7 +2,7 @@ import useAllowances from '@/lib/hooks/useAllowances';
 import useApprove from '@/lib/hooks/useApprove';
 import useLotteryData from '@/lib/hooks/useLotteryData';
 import usePurchase from '@/lib/hooks/usePurchase';
-import { Button, CustomFlowbiteTheme, Modal, Tooltip } from 'flowbite-react';
+import { Button, CustomFlowbiteTheme, Modal, Spinner, Tooltip } from 'flowbite-react';
 import React, { Dispatch, SetStateAction, useEffect } from 'react';
 import { HiMinus, HiShoppingCart } from 'react-icons/hi2';
 
@@ -87,10 +87,22 @@ export default function TicketCartModal({
             </div>
             <div className='mt-10 grid max-w-sm grid-cols-2 gap-x-5 md:mx-auto'>
               <Button color='blue' disabled={!isAllowance || isApproving || isApproveTxLoading} onClick={() => approveTokens?.()}>
-                Approve
+                {isApproving || isApproveTxLoading ? (
+                  <>
+                    Please Wait <Spinner size='sm' className='ml-3' />
+                  </>
+                ) : (
+                  'Approve'
+                )}
               </Button>
               <Button color='success' disabled={isAllowance || isPurchasing || isPurchaseTxLoading} onClick={handlePurchase}>
-                Purchase
+                {isPurchasing || isPurchaseTxLoading ? (
+                  <>
+                    Please Wait <Spinner size='sm' className='ml-3' />
+                  </>
+                ) : (
+                  'Purchase'
+                )}
               </Button>
             </div>
             <p className='mt-5 text-center'>

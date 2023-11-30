@@ -2,6 +2,13 @@ import { LOTTERY_ABI, LOTTERY_ADDRESS } from '@/config/lottery-contract';
 import { useContractRead } from 'wagmi';
 
 export default function useLotteryData() {
+  const { data: owner } = useContractRead({
+    watch: true,
+    abi: LOTTERY_ABI,
+    address: LOTTERY_ADDRESS,
+    functionName: 'owner',
+  });
+
   const { data: lotteryCurrentRound } = useContractRead({
     watch: true,
     abi: LOTTERY_ABI,
@@ -37,5 +44,26 @@ export default function useLotteryData() {
     functionName: 'lotteryTimestamp',
   });
 
-  return { lotteryCurrentRound, prizePool, ticketSold, ticketPrice, lotteryTimestamp };
+  const { data: isDrawComplete } = useContractRead({
+    watch: true,
+    abi: LOTTERY_ABI,
+    address: LOTTERY_ADDRESS,
+    functionName: 'isLotteryDrawComplete',
+  });
+
+  const { data: isLotteryOpen } = useContractRead({
+    watch: true,
+    abi: LOTTERY_ABI,
+    address: LOTTERY_ADDRESS,
+    functionName: 'isLotteryOpen',
+  });
+
+  const { data: winningTicket } = useContractRead({
+    watch: true,
+    abi: LOTTERY_ABI,
+    address: LOTTERY_ADDRESS,
+    functionName: 'drawResult',
+  });
+
+  return { owner, lotteryCurrentRound, prizePool, ticketSold, ticketPrice, lotteryTimestamp, isDrawComplete, isLotteryOpen, winningTicket };
 }
