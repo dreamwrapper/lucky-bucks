@@ -14,7 +14,7 @@ interface UserTicket {
   ticket: number[];
 }
 
-type UserOwnedTickets = UserTicket[] | undefined;
+export type UserOwnedTickets = UserTicket[] | undefined;
 
 function Tickets({ userOwnedTickets }: { userOwnedTickets: UserOwnedTickets }) {
   return (
@@ -81,16 +81,20 @@ function UserTickets({ onClick }: { onClick: Dispatch<SetStateAction<boolean>> }
     }
   }, [ticketIndex, drawLottery]);
 
-  console.log(ticketIndex);
+  const customCardTheme: CustomFlowbiteTheme['card'] = {
+    root: {
+      base: 'flex rounded-lg border border-gray-200 bg-white shadow-md dark:border-gray-600 dark:bg-gray-700',
+    },
+  };
 
   return (
     <div className='grid gap-y-3 md:grid-cols-2 md:gap-x-7'>
-      <Card className=''>
-        <div className='ml-auto'>
+      <Card theme={customCardTheme}>
+        {/* <div className='ml-auto'>
           <button onClick={() => onClick(false)}>
             <HiXMark className='h-7 w-7' />
           </button>
-        </div>
+        </div> */}
         <div className='space-y-7'>
           <div className='flex flex-col items-center'>
             {/* <HiUserCircle className='mb-3 h-14 w-14' /> */}
@@ -113,7 +117,7 @@ function UserTickets({ onClick }: { onClick: Dispatch<SetStateAction<boolean>> }
                 </Button>
               )}
 
-              <Button color='dark' onClick={openAccountModal}>
+              <Button color='blue' onClick={openAccountModal}>
                 Wallet
               </Button>
             </div>
@@ -150,7 +154,7 @@ function UserTickets({ onClick }: { onClick: Dispatch<SetStateAction<boolean>> }
           </div>
         </div>
       </Card>
-      <Card>
+      <Card theme={customCardTheme}>
         <Tickets userOwnedTickets={userOwnedTickets as UserOwnedTickets} />
       </Card>
     </div>
@@ -161,7 +165,7 @@ export default function UserModal({ isModalOpen, onClick }: { isModalOpen: boole
   const customModalTheme: CustomFlowbiteTheme['modal'] = {
     content: {
       base: 'relative h-full w-full p-4 md:h-auto',
-      inner: 'relative rounded-lg bg-white shadow bg-transparent dark:bg-gray-800 flex flex-col max-h-[90vh]',
+      inner: 'relative rounded-lg bg-white shadow bg-transparent dark:bg-gray-700 flex flex-col max-h-[90vh]',
     },
     body: {
       base: 'p-6 flex-1 overflow-auto scrollbar-hide',
@@ -172,6 +176,12 @@ export default function UserModal({ isModalOpen, onClick }: { isModalOpen: boole
   return (
     <>
       <Modal dismissible show={isModalOpen} onClose={() => onClick(false)} size='3xl' theme={customModalTheme}>
+        <Modal.Header>
+          <div className='flex items-center gap-x-2'>
+            <HiUserCircle className='h-7 w-7' />
+            Personal Info
+          </div>
+        </Modal.Header>
         <Modal.Body>
           <div>
             <UserTickets onClick={onClick} />

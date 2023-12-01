@@ -1,6 +1,7 @@
 import useLotteryData from '@/lib/hooks/useLotteryData';
 import { CustomFlowbiteTheme, Modal } from 'flowbite-react';
 import { Dispatch, SetStateAction } from 'react';
+import { HiInformationCircle } from 'react-icons/hi2';
 
 export default function PrizesInfoModal({ isModalOpen, onClick }: { isModalOpen: boolean; onClick: Dispatch<SetStateAction<boolean>> }) {
   const modalCustomTheme: CustomFlowbiteTheme['modal'] = {
@@ -16,16 +17,14 @@ export default function PrizesInfoModal({ isModalOpen, onClick }: { isModalOpen:
 
   return (
     <Modal dismissible show={isModalOpen} onClose={() => onClick(false)} theme={modalCustomTheme}>
-      <Modal.Header>Prizes & Info</Modal.Header>
-      <Modal.Body>
-        <div className='space-y-4'>
-          <h3 className='text-xl font-semibold'>What is LBC Lottery?</h3>
-          <p className='font-light text-gray-200'>
-            LBC Lottery is a Quick Draw lottery-style game. The rules of the game are the same as those of the original lottery but the draw results are determined by a random number generator (RNG).
-            LBC Lottery draws take place every weeks.
-          </p>
+      <Modal.Header>
+        <div className='flex items-center gap-x-2'>
+          <HiInformationCircle className='h-7 w-7' />
+          Prizes & Info
         </div>
-        <div className='mt-10'>
+      </Modal.Header>
+      <Modal.Body>
+        <div>
           <ul className='space-y-3'>
             <li className='flex justify-between text-lg'>
               <span>Prize Pool : </span>
@@ -41,6 +40,27 @@ export default function PrizesInfoModal({ isModalOpen, onClick }: { isModalOpen:
             <li className='flex justify-between text-lg'>
               <span>Ticket Price : </span>
               <span className='font-semibold'> {ticketPrice} LBC</span>
+            </li>
+          </ul>
+        </div>
+        <div className='mt-10 space-y-4'>
+          <h3 className='text-xl font-semibold'>What is LBC Lottery?</h3>
+          <p className='font-light text-gray-200'>
+            LBC Lottery is a Quick Draw lottery-style game. The rules of the game are the same as those of the original lottery, but the draw results are determined by a random number generator (RNG).
+            LBC Lottery draws take place every week.
+          </p>
+        </div>
+        <div className='mt-10 space-y-4'>
+          <h3 className='text-xl font-semibold'>LBC Lottery Rules</h3>
+          <ul className='space-y-3'>
+            <li>
+              <p className='text-gray-200'>1. Duplicate numbers in a ticket is disallowed</p>
+            </li>
+            <li>
+              <p className='text-gray-200'>1. Duplicate tickets is disallowed for one user</p>
+            </li>
+            <li>
+              <p className='text-gray-200'>3. Different users can share the same ticket</p>
             </li>
           </ul>
         </div>

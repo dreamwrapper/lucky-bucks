@@ -7,11 +7,24 @@ import { useState } from 'react';
 import { rng } from '@/lib/utils/rng';
 import TicketCartButton from './TicketCartButton';
 import TicketCartModal from './TicketCartModal';
+import { compareArrays } from '@/lib/utils/compareArr';
+import { LOTTERY_ABI, LOTTERY_ADDRESS } from '@/config/lottery-contract';
+import { useAccount, useContractRead } from 'wagmi';
 
 export default function Core() {
   const [selectedTickets, setSelectedTickets] = useState<number[]>([]);
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
   const [addedTickets, setAddedTickets] = useState<number[][]>([]);
+
+  const { address } = useAccount();
+
+  const { data: userOwnedTickets } = useContractRead({
+    watch: true,
+    abi: LOTTERY_ABI,
+    address: LOTTERY_ADDRESS,
+    functionName: 'userOwnedTickets',
+    args: [address as `0x${string}`],
+  });
 
   const handleSelectedTickets = (selectedTicket: number) => {
     const numberIndex = selectedTickets.indexOf(selectedTicket);
@@ -72,6 +85,48 @@ export default function Core() {
     setSelectedTickets(result);
   };
 
+  function generateTickets(toGenerate: number) {
+    const minRange = 1;
+    const maxRange = 50;
+    const arrayMaxLength = 6;
+
+    let result: number[][] = [];
+
+    loopOne: for (let h = 0; h < toGenerate; h++) {
+      let numbers: Set<number> = new Set();
+
+      loopTwo: while (numbers.size < arrayMaxLength) {
+        const number = rng(minRange, maxRange);
+
+        if (numbers.has(number)) {
+          continue loopTwo;
+        }
+
+        numbers.add(number);
+      }
+
+      const newTicket = Array.from(numbers);
+
+      for (let k = 0; k < result.length; k++) {
+        // const userTicketArray: number[] = [...userOwnedTickets![k]?.ticket];
+
+        // if (compareArrays(newTicket, userTicketArray)) {
+        //   h--;
+        //   continue loopOne;
+        // }
+
+        if (compareArrays(newTicket, result[k])) {
+          h--;
+          continue loopOne;
+        }
+      }
+
+      result.push(newTicket);
+    }
+
+    setAddedTickets(result);
+  }
+
   return (
     <>
       <div>
@@ -80,7 +135,14 @@ export default function Core() {
             <div className='grid grid-cols-5 gap-3 md:grid-cols-10 lg:gap-x-9 lg:gap-y-4'>
               <LotteryNumbers selectedTickets={selectedTickets} onClick={handleSelectedTickets} />
             </div>
-            <SelectedNumbers selectedTickets={selectedTickets} onClearSelectedTickets={clearSelectedTickets} onRandomSelectedTickets={randomSelectedTickets} handleAddedTickets={handleAddedTickets} />
+            <SelectedNumbers
+              selectedTickets={selectedTickets}
+              onClearSelectedTickets={clearSelectedTickets}
+              onRandomSelectedTickets={randomSelectedTickets}
+              handleAddedTickets={handleAddedTickets}
+              generateTickets={generateTickets}
+              addedTickets={addedTickets}
+            />
           </div>
         </Card>
       </div>

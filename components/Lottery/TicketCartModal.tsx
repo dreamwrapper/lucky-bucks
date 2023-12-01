@@ -22,7 +22,7 @@ export default function TicketCartModal({
   const customModalTheme: CustomFlowbiteTheme['modal'] = {
     content: {
       base: 'relative h-full w-full p-4 md:h-auto',
-      inner: 'relative rounded-lg bg-white shadow dark:bg-gray-800 flex flex-col max-h-[90vh]',
+      inner: 'relative rounded-lg bg-white shadow dark:bg-gray-700 flex flex-col max-h-[90vh]',
     },
     body: {
       base: 'p-6 flex-1 overflow-auto scrollbar-hide',
@@ -65,7 +65,7 @@ export default function TicketCartModal({
               <ul className='space-y-6'>
                 {addedTickets.map((tickets, i) => (
                   <div key={i} className='flex items-center justify-between'>
-                    <li className='flex items-center gap-x-7 rounded-lg border border-gray-700 p-3 md:px-5'>
+                    <li className='flex items-center gap-x-7 rounded-lg border border-gray-600 p-3 md:px-5'>
                       <span> {i + 1}. </span>
 
                       <div className='grid grid-cols-3 gap-x-3 gap-y-4 md:flex md:grid-cols-none'>
@@ -89,7 +89,7 @@ export default function TicketCartModal({
               <Button color='blue' disabled={!isAllowance || isApproving || isApproveTxLoading} onClick={() => approveTokens?.()}>
                 {isApproving || isApproveTxLoading ? (
                   <>
-                    Please Wait <Spinner size='sm' className='ml-3' />
+                    Loading <Spinner size='sm' className='ml-3' />
                   </>
                 ) : (
                   'Approve'
@@ -98,7 +98,7 @@ export default function TicketCartModal({
               <Button color='success' disabled={isAllowance || isPurchasing || isPurchaseTxLoading} onClick={handlePurchase}>
                 {isPurchasing || isPurchaseTxLoading ? (
                   <>
-                    Please Wait <Spinner size='sm' className='ml-3' />
+                    Loading <Spinner size='sm' className='ml-3' />
                   </>
                 ) : (
                   'Purchase'
