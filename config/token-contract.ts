@@ -1,4 +1,4 @@
-export const TOKEN_ADDRESS = '0x38bD70a9Add22626A7F56c5C53252fD30317cae0';
+export const TOKEN_ADDRESS = '0x8DbC9F88b1a6292BaC0E8a214AD5223703aeB506';
 export const TOKEN_ABI = [
   {
     inputs: [
