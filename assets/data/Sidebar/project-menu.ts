@@ -14,7 +14,7 @@ export const projectMenu = [
         text: 'Token Contract',
       },
       {
-        href: '#',
+        href: 'https://explorer.octa.space/address/0x61E38B9E670D30F3b2Bd065f4eBBDE0b8Bb80cEc',
         text: 'Lottery Contract',
       },
     ],
