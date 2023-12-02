@@ -1,6 +1,5 @@
 import useClient from '@/lib/hooks/useClient';
 import useLotteryData from '@/lib/hooks/useLotteryData';
-import useLotteryStatus from '@/lib/hooks/useLotteryStatus';
 import { Button } from 'flowbite-react';
 import { useState } from 'react';
 import { HiArrowPath, HiChevronRight, HiXMark } from 'react-icons/hi2';
@@ -81,7 +80,7 @@ export default function SelectedNumbers({
       <div className='flex flex-col gap-y-7 md:gap-y-10 lg:mt-10 lg:flex-row lg:items-center lg:justify-evenly lg:gap-y-0'>
         <div className='mt-8 flex flex-col gap-y-7 md:flex-row md:justify-evenly md:gap-y-0 lg:mt-0 lg:gap-x-7'>
           <div className='self-center '>
-            <Button pill onClick={() => setGenerateTicketsModal(!generateTicketsModal)}>
+            <Button pill onClick={() => setGenerateTicketsModal(!generateTicketsModal)} disabled={!isLotteryOpen}>
               Generate Tickets
             </Button>
             <GenerateTicketsModal generateTicketsModal={generateTicketsModal} setGenerateTicketsModal={setGenerateTicketsModal} generateTickets={generateTickets} addedTickets={addedTickets} />

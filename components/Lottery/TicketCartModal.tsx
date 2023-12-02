@@ -65,7 +65,7 @@ export default function TicketCartModal({
               <ul className='space-y-6'>
                 {addedTickets.map((tickets, i) => (
                   <div key={i} className='flex items-center justify-between'>
-                    <li className='flex items-center gap-x-7 rounded-lg border border-gray-600 p-3 md:px-5'>
+                    <li className='flex items-center gap-x-4 rounded-lg border border-gray-600 p-3 md:gap-x-6 md:px-5'>
                       <span> {i + 1}. </span>
 
                       <div className='grid grid-cols-3 gap-x-3 gap-y-4 md:flex md:grid-cols-none'>

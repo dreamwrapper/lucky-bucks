@@ -54,13 +54,16 @@ export default function PrizesInfoModal({ isModalOpen, onClick }: { isModalOpen:
           <h3 className='text-xl font-semibold'>LBC Lottery Rules</h3>
           <ul className='space-y-3'>
             <li>
-              <p className='text-gray-200'>1. Duplicate numbers in a ticket is disallowed</p>
+              <p className='text-gray-200'>1. Duplicating numbers on a ticket is not allowed</p>
             </li>
             <li>
-              <p className='text-gray-200'>1. Duplicate tickets is disallowed for one user</p>
+              <p className='text-gray-200'>2. Duplicating tickets is not allowed for any user</p>
             </li>
             <li>
-              <p className='text-gray-200'>3. Different users can share the same ticket</p>
+              <p className='text-gray-200'>3. Various users can share a common ticket</p>
+            </li>
+            <li>
+              <p className='text-gray-200'>4. Two or more users who share the same ticket will also share the reward from the prize pool ( prizePool / totalWinner )</p>
             </li>
           </ul>
         </div>
