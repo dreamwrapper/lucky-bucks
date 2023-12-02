@@ -685,4 +685,4 @@ export const LOTTERY_ABI = [
     stateMutability: 'view',
     type: 'function',
   },
-];
+] as const;
