@@ -3,7 +3,7 @@ import { CustomFlowbiteTheme, Modal } from 'flowbite-react';
 import { Dispatch, SetStateAction } from 'react';
 import { HiInformationCircle } from 'react-icons/hi2';
 
-export default function PrizesInfoModal({ isModalOpen, onClick }: { isModalOpen: boolean; onClick: Dispatch<SetStateAction<boolean>> }) {
+export default function InfoModal({ isInfoModalOpen, onClick }: { isInfoModalOpen: boolean; onClick: Dispatch<SetStateAction<boolean>> }) {
   const modalCustomTheme: CustomFlowbiteTheme['modal'] = {
     root: {
       show: {
@@ -16,7 +16,7 @@ export default function PrizesInfoModal({ isModalOpen, onClick }: { isModalOpen:
   const { prizePool, ticketSold, ticketPrice } = useLotteryData();
 
   return (
-    <Modal dismissible show={isModalOpen} onClose={() => onClick(false)} theme={modalCustomTheme}>
+    <Modal dismissible show={isInfoModalOpen} onClose={() => onClick(false)} theme={modalCustomTheme}>
       <Modal.Header>
         <div className='flex items-center gap-x-2'>
           <HiInformationCircle className='h-7 w-7' />

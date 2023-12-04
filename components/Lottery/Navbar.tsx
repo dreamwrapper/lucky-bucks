@@ -3,17 +3,15 @@ import { HiBars3 } from 'react-icons/hi2';
 import UserButton from './UserButton';
 import Link from 'next/link';
 
-export default function Navbar({ onClick }: { onClick: () => void }) {
+export default function Navbar({ handleOpenSidebar }: { handleOpenSidebar: () => void }) {
   return (
     <NB fluid className='sticky top-0 z-50 border-b'>
       <div className='flex items-center gap-x-3'>
-        <button onClick={onClick}>
+        <button onClick={handleOpenSidebar}>
           <HiBars3 className='h-9 w-9' />
         </button>
-        <NB.Brand as={Link} href='#'>
-          <span className='self-center whitespace-nowrap text-2xl font-bold dark:text-white'>
-            Lucky Bucks
-          </span>
+        <NB.Brand as={Link} href='/'>
+          <span className='self-center whitespace-nowrap text-2xl font-bold dark:text-white'>Lucky Bucks</span>
         </NB.Brand>
       </div>
       <UserButton />

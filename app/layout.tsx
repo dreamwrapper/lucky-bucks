@@ -10,7 +10,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'Lucky Bucks',
+  title: 'LUCKYBUCKS',
   description: 'Games. DEX. Launchpad',
 };
 

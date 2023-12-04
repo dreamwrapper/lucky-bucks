@@ -3,13 +3,7 @@ import { CustomFlowbiteTheme, Sidebar as SB } from 'flowbite-react';
 import { HiHomeModern, HiCurrencyDollar } from 'react-icons/hi2';
 
 function SidebarBackdrop({ isSidebarOpen }: { isSidebarOpen: boolean }) {
-  return (
-    <div
-      className={`fixed inset-0 z-30 opacity-50 dark:bg-gray-950 ${
-        isSidebarOpen ? 'hidden' : 'block'
-      }`}
-    />
-  );
+  return <div className={`fixed inset-0 z-30 opacity-50 dark:bg-gray-950 ${isSidebarOpen ? 'hidden' : 'block'}`} />;
 }
 
 export default function Sidebar({ isSidebarOpen }: { isSidebarOpen: boolean }) {
@@ -20,33 +14,19 @@ export default function Sidebar({ isSidebarOpen }: { isSidebarOpen: boolean }) {
         on: '-translate-x-full',
         off: 'translate-x-0 w-full md:w-64',
       },
-      inner:
-        'h-full scrollbar-hide overflow-y-auto overflow-x-hidden py-4 px-3',
+      inner: 'h-full scrollbar-hide overflow-y-auto overflow-x-hidden py-4 px-3',
     },
   };
 
   return (
     <>
-      <SB
-        as='aside'
-        aria-label='Default SB example'
-        collapsed={isSidebarOpen}
-        theme={sidebarCustomTheme}
-      >
+      <SB as='aside' aria-label='Sidebar' collapsed={isSidebarOpen} theme={sidebarCustomTheme}>
         <SB.Items>
           <SB.ItemGroup>
-            <SB.Item
-              href='https://luckybucks.io'
-              target='_blank'
-              icon={HiHomeModern}
-            >
+            <SB.Item href='https://luckybucks.io' target='_blank' icon={HiHomeModern}>
               Home
             </SB.Item>
-            <SB.Item
-              href='https://casino.luckybucks.io'
-              target='_blank'
-              icon={HiCurrencyDollar}
-            >
+            <SB.Item href='https://casino.luckybucks.io' target='_blank' icon={HiCurrencyDollar}>
               Casino
             </SB.Item>
           </SB.ItemGroup>
@@ -54,12 +34,7 @@ export default function Sidebar({ isSidebarOpen }: { isSidebarOpen: boolean }) {
             {projectMenu.map((item, i) => (
               <SB.Collapse key={i} icon={item.icon} label={item.text}>
                 {item.submenu.map((subitem, j) => (
-                  <SB.Item
-                    key={j}
-                    href={subitem.href}
-                    download={subitem.href === '/whitepaper.pdf' ? true : false}
-                    target='_blank'
-                  >
+                  <SB.Item key={j} href={subitem.href} download={subitem.href === '/whitepaper.pdf' ? true : false} target='_blank'>
                     {subitem.text}
                   </SB.Item>
                 ))}

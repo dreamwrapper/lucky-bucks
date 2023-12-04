@@ -1,18 +1,17 @@
 'use client';
 
 import { useState } from 'react';
-
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
 
 export default function AppBar() {
   const [IsSidebarOpen, setIsSidebarOpen] = useState(true);
 
-  const handleOnClick = () => setIsSidebarOpen(!IsSidebarOpen);
+  const handleOpenSidebar = () => setIsSidebarOpen(!IsSidebarOpen);
 
   return (
     <>
-      <Navbar onClick={handleOnClick} />
+      <Navbar handleOpenSidebar={handleOpenSidebar} />
       <Sidebar isSidebarOpen={IsSidebarOpen} />
     </>
   );
