@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import AppBar from '@/components/Lottery/AppBar';
 import RainbowKit from './rainbowkit';
 
 const inter = Inter({
@@ -18,10 +17,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang='en' className='dark'>
       <body className={`dark:bg-gray-900 dark:text-gray-100 ${inter.className} scrollbar-hide`}>
-        <RainbowKit>
-          <AppBar />
-          {children}
-        </RainbowKit>
+        <RainbowKit>{children}</RainbowKit>
       </body>
     </html>
   );

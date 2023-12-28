@@ -1,9 +1,13 @@
+'use client';
+
 import useLotteryData from '@/lib/hooks/useLotteryData';
+import { useModalStore } from '@/stores/modalStore';
 import { CustomFlowbiteTheme, Modal } from 'flowbite-react';
-import { Dispatch, SetStateAction } from 'react';
 import { HiInformationCircle } from 'react-icons/hi2';
 
-export default function InfoModal({ isInfoModalOpen, onClick }: { isInfoModalOpen: boolean; onClick: Dispatch<SetStateAction<boolean>> }) {
+export default function InfoModal() {
+  const { infoModal, toggleInfoModal } = useModalStore();
+
   const modalCustomTheme: CustomFlowbiteTheme['modal'] = {
     root: {
       show: {
@@ -16,7 +20,7 @@ export default function InfoModal({ isInfoModalOpen, onClick }: { isInfoModalOpe
   const { prizePool, ticketSold, ticketPrice } = useLotteryData();
 
   return (
-    <Modal dismissible show={isInfoModalOpen} onClose={() => onClick(false)} theme={modalCustomTheme}>
+    <Modal dismissible show={infoModal} onClose={() => toggleInfoModal(false)} theme={modalCustomTheme}>
       <Modal.Header>
         <div className='flex items-center gap-x-2'>
           <HiInformationCircle className='h-7 w-7' />

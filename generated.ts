@@ -154,7 +154,7 @@ export const lbcLotteryABI = [
   },
 ] as const;
 
-export const lbcLotteryAddress = '0x61E38B9E670D30F3b2Bd065f4eBBDE0b8Bb80cEc' as const;
+export const lbcLotteryAddress = '0x4Ad246a84EeAd5a4997a6176c1887319610cD70B' as const;
 
 export const lbcLotteryConfig = { address: lbcLotteryAddress, abi: lbcLotteryABI } as const;
 

@@ -1,16 +1,12 @@
 'use client';
 
 import { Button } from 'flowbite-react';
-import { useState } from 'react';
-import InfoModal from './InfoModal';
 import useClient from '@/lib/hooks/useClient';
+import { useModalStore } from '@/stores/modalStore';
 
 export default function TabsButton() {
-  const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
-
   const isClient = useClient();
-
-  const handleOnClick = () => setIsInfoModalOpen(!isInfoModalOpen);
+  const { infoModal, toggleInfoModal } = useModalStore();
 
   if (!isClient) {
     return (
@@ -27,15 +23,14 @@ export default function TabsButton() {
   return (
     <>
       <div className='flex flex-col gap-y-3 lg:flex-row lg:gap-x-5'>
-        <Button outline={isInfoModalOpen ? true : false}>Pick 6 numbers</Button>
+        <Button outline={infoModal ? true : false}>Pick 6 numbers</Button>
         <Button outline disabled>
           Draw History
         </Button>
-        <Button outline={isInfoModalOpen ? false : true} onClick={handleOnClick}>
+        <Button outline={infoModal ? false : true} onClick={() => toggleInfoModal()}>
           Prizes & Info
         </Button>
       </div>
-      <InfoModal isInfoModalOpen={isInfoModalOpen} onClick={setIsInfoModalOpen} />
     </>
   );
 }

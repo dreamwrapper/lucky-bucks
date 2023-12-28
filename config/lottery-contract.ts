@@ -1,4 +1,4 @@
-export const LOTTERY_ADDRESS = '0x61E38B9E670D30F3b2Bd065f4eBBDE0b8Bb80cEc';
+export const LOTTERY_ADDRESS = '0x4Ad246a84EeAd5a4997a6176c1887319610cD70B';
 export const LOTTERY_ABI = [
   {
     inputs: [
